@@ -70,7 +70,7 @@
 
         //Here is a wrapper for the operation we would like to preform on the filesystem.
         //Initializes the filesystem and then does the passed in operation if successful
-        var confirmStorage = function (operation) {
+        me.confirmStorage = function (operation) {
             return initFileSystem().done(operation).fail(function (error) {
                 console.error('Failed to request FileSystem: ' + error);
             });
@@ -405,4 +405,4 @@
     };
 	//return the constructor
     return fileStorageService;
-})();
+})($);
