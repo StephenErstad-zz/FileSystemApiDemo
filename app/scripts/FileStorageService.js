@@ -1,4 +1,4 @@
-﻿var fileStorageService = (function fileStorageServiceFactory($) {
+﻿var FileStorageService = (function fileStorageServiceFactory($) {
     var fileStorageService = function FileStorageService() {
         var me = this;
 
