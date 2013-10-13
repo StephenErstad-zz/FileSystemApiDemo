@@ -166,9 +166,9 @@
                 fileName = fileName.slice(fileName.lastIndexOf('/') + 1);
 
                 //confirm the storage and then do the operation/function passed in
-                confirmStorage(function (fs) {
+                me.confirmStorage(function (fs) {
                     //We need to ensure that the target directory exists
-                    var directoryPromise = createDirectories(fs.root, path);
+                    var directoryPromise = me.createDirectories(fs.root, path);
 
                     directoryPromise.done(function (targetDir) {
                         //We use the 
@@ -249,7 +249,7 @@
         me.readDirectory = function (path) {
             var reading = $.Deferred();
             //Confirm our storage and give it the function we want to preform
-            confirmStorage(function (fs) {
+            me.confirmStorage(function (fs) {
                 var dirEntries = [];
                 //Get the we desire to read from, stating to not create 
                 fs.root.getDirectory(path, { create: false }, function (dirEntry) {
@@ -353,7 +353,7 @@
             var deleting = $.Deferred();
 
             //Confirm our storage and give it the function we want to preform
-            confirmStorage(function (fs) {
+            me.confirmStorage(function (fs) {
                 //Get the we desire to delete, stating to not create 
                 fs.root.getDirectory(path, { create: false }, function (dirEntry) {
                     //Delete the target directory and all its content recursively

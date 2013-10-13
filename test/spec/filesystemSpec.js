@@ -6,14 +6,17 @@
     var testData = {};
 
     testData.desiredBytes = 2 * Math.pow(1024, 3);
-    testData.testPath = '/test/me/out';
-    testData.fileName = testData.testPath + '/' + 'test.txt';
+    testData.path = '/test/me/out';
+    testData.fileName = testData.path + '/' + 'test.txt';
     testData.data = 'Writing a text file for test: ' + (new Date());
     testData.mimeType = 'text/plain';
+    testData.toArray = function (list) {
+        return Array.prototype.slice.call(list || [], 0);
+    };
 
     describe('Filesystem API', function () {
 
-        describe('Filesystem API storage', function () {
+        xdescribe('Filesystem API storage', function () {
             it('needs to be requested for a given amount if you want persistent storage', function () {
 
                 //We are going to request persistant storage for our application.  We null coalesce because currently Chrome prefixes the storage, but may not in the future.
@@ -38,14 +41,14 @@
                             function (error) {
                                 //Fail if we don't get our filesystem
 
-                                expect(false).toBe(true);
+                                expect(false).toBeTruthy();
 
                             }
                         );
                     }, function (error) {
                         //Fail if we don't get our quota
 
-                        expect(false).toBe(true);
+                        expect(false).toBeTruthy();
 
                     });
 
@@ -70,7 +73,7 @@
             });
         });
 
-        describe('Quota retrieval', function () {
+        xdescribe('Quota retrieval', function () {
             it('Should us the total as 2GB', function () {
 
                 //Same as null coalescing because of prefix
@@ -87,15 +90,15 @@
                     function (e) {
                         //Pass along the pain if the request for usage data fails	
 
-                        expect(false).toBe(true);
+                        expect(false).toBeTruthy();
 
                     }
                 );
             });
         });
 
-        describe('Creating directories with a DirectoryEntry', function () {
-            it('Should create the directory represented by testData.testPath', function () {
+        xdescribe('Creating directories with a DirectoryEntry', function () {
+            it('Should create the directory represented by testData.path', function () {
                 var helperService = new FileStorageService();
 
                 helperService.confirmStorage(function (fs) {
@@ -134,7 +137,7 @@
                                     //We are done so we pass the DirectoryEntry object representing the deepest directory in the original path
 
                                     expect(dirEntry).toBeTruthy();
-                                    expect(dirEntry.fullPath).toBe(testData.testPath);
+                                    expect(dirEntry.fullPath).toBe(testData.path);
 
                                 }
                             },
@@ -142,19 +145,19 @@
                                 //We have failed in creating all the directories needed.
                                 //Note that we may have created some but not all, SCARY!
 
-                                expect(false).toBe(true);
+                                expect(false).toBeTruthy();
 
                             });
                     }
 
                     //We start the recursive process above starting at the given root and with the given path.
-                    createSubdirectories(fs.root, testData.testPath);
+                    createSubdirectories(fs.root, testData.path);
 
                 });
             });
         });
 
-        describe('Creating files at a given path', function () {
+        xdescribe('Creating files at a given path', function () {
             it('Should create a file in the given path that has a filesystem URL we can reference', function () {
                 var helperService = new FileStorageService();
 
@@ -196,7 +199,7 @@
                                     //Finding out about the bad, bad things
                                     fileWriter.onerror = function (e) {
 
-                                        expect(false).toBe(true);
+                                        expect(false).toBeTruthy();
 
                                     };
                                     //Kicking off the write
@@ -205,39 +208,39 @@
 								function (error) {
 								    //We failed to create the writer for the FileEntry
 
-								    expect(false).toBe(true);
+								    expect(false).toBeTruthy();
 
 								});
                             },
 							function (error) {
 							    //Failed to get the file
 
-							    expect(false).toBe(true);
+							    expect(false).toBeTruthy();
 
 							});
                         }).fail(function (errorDescription) {
                             //Failed to get the directory
 
-                            expect(false).toBe(true);
+                            expect(false).toBeTruthy();
 
                         });
                     }).fail(function () {
                         //Failed to confirm the storage
 
-                        expect(false).toBe(true);
+                        expect(false).toBeTruthy();
 
                     });
                 }).fail(function (error) {
                     //Failed to ensure the file doesn't exist
 
-                    expect(false).toBe(true);
+                    expect(false).toBeTruthy();
 
                 });
 
             });
         });
 
-        describe('Reading a file at a given path', function () {
+        xdescribe('Reading a file at a given path', function () {
             it('Should read the file in the given path and give me the FileEntry object it represents', function () {
 
                 var helperService = new FileStorageService();
@@ -255,14 +258,149 @@
 
                     }, function (error) {
                         //We failed to get the file...  Depressing
-                        expect(false).toBe(true);
+                        expect(false).toBeTruthy();
                     });
                 }).fail(function () {
                     //Cry a little if we fail to confirm the storage
-                    expect(false).toBe(true);
+                    expect(false).toBeTruthy();
                 });
             })
         });
+
+        xdescribe('Reading a directory\'s contents at a given path', function () {
+            it('Should give us a collection of Entry objects in general and a txt file here', function () {
+                var helperService = new FileStorageService();
+                var testFilePath = testData.path + '/some.json';
+                helperService.writeFile(testFilePath, JSON.stringify({
+                    root: {
+                        name: 'I am test data',
+                        children: [{ name: 'Larry' },
+                            { name: 'Curly' },
+                            { name: 'Moe' }]
+                    }
+                }), 'application/json').done(function () {
+
+                    helperService.confirmStorage(function (fs) {
+                        var dirEntries = [];
+                        //Get the we desire to read from, stating to not create 
+                        fs.root.getDirectory(testData.path, { create: false }, function (dirEntry) {
+                            //We create a DirectoryReader
+                            var reader = dirEntry.createReader();
+                            //We need to setup a function we can call recursively 
+                            //because the reader may not give us all our Entries with the first call
+                            var readEntries = function () {
+                                //Start reading with the DirectoryReader
+                                reader.readEntries(function (results) {
+                                    //Look at results if the read was successful
+                                    if (!results.length) {
+                                        //If there are no Entries in results, we can stop
+                                        //and resolve the promise with the aggregated results
+                                        //reading.resolve(dirEntries);
+                                        dirEntries.forEach(function (item) {
+                                            console.log('Read this file from the dir: ' + item.toURL());
+                                        });
+                                        expect(dirEntries.length).toBeGreaterThan(0);
+                                    } else {
+                                        //If there are Entries in results, we aggregate the results
+                                        //and keep on keeping on by using recursion
+                                        dirEntries = dirEntries.concat(testData.toArray(results));
+                                        readEntries();
+                                    }
+                                }, function (error) {
+                                    //We failed to read all the contents of the directory
+                                    expect(false).toBeTruthy();
+
+                                });
+                            };
+                            //Start reading directory
+                            readEntries();
+                        }, function (error) {
+                            //We failed to get the desired directory, maybe it didn't exist
+                            expect(false).toBeTruthy();
+
+                        });
+
+                    }).fail(function () {
+                        //Didn't confirm we have storage...  BAH
+                        expect(false).toBeTruthy();
+
+                    });
+                });
+
+
+            });
+
+        });
+
+        xdescribe('Deleteing a directory at a given path', function () {
+
+            it('Should remove the directory and it\'s contents', function () {
+
+                var helperService = new FileStorageService();
+
+                //Confirm our storage and give it the function we want to preform
+                helperService.confirmStorage(function (fs) {
+                    //Get the we desire to delete, stating to not create 
+                    fs.root.getDirectory(testData.path, { create: false }, function (dirEntry) {
+                        //Delete the target directory and all its content recursively
+                        dirEntry.removeRecursively(function () {
+                            //Success
+                            expect(true).toBeTruthy();
+                        }, function (error) {
+                            //Failure
+                            expect(false).toBeTruthy();
+                        });
+                    }, function (error) {
+                        //If the error when getting the directory is that it is not found
+                        //then we are successful because there is not directory
+                        if (error.code === FileError.NOT_FOUND_ERR) {
+                            expect(true).toBeTruthy();
+                        } else {
+                            //We have failed to delete the directory
+                            expect(false).toBeTruthy();
+                        }
+                    });
+                }).fail(function () {
+                    //Failed to confirm storage and got no where...
+                    deleting.reject();
+                });
+
+            });
+
+        });
+
+        xdescribe('Deleting a file at a given path', function () {
+            it('Should delete the file and nothing else', function () {
+
+                var helperService = new FileStorageService();
+                
+                //Confirm our storage and give it the function we want to preform
+                helperService.confirmStorage(function (fs) {
+                    //Lookup the file at the given path starting at the root of the filesystem
+                    fs.root.getFile(testData.fileName, { create: false }, function (fileEntry) {
+                        //We have found the file at the path
+                        fileEntry.remove(function () {
+                            //Successfully deleted
+                            expect(true).toBeTruthy();
+                        }, function (error) {
+                            //Failed to delete
+                            expect(true).toBeFalsy();
+                        });
+                    }, function (error) {
+                        //If the file was not found at the given path, then we consider it deleted
+                        if (error.code === FileError.NOT_FOUND_ERR) {
+                            expect(true).toBeTruthy();
+                        } else {
+                            //Failed to get the file 
+                            expect(true).toBeFalsy();
+                        }
+                    });
+                }).fail(function () {
+                    //Failed to confirm the storage, I blame Sean Dulin, the data, or both
+                    expect(true).toBeFalsy();
+                });
+            });
+        })
 
     });
 })();
