@@ -1,0 +1,5 @@
+C:\GitHub\FileSystemApiDemo\bin\FileSystemApiDemo.dll
+C:\GitHub\FileSystemApiDemo\bin\FileSystemApiDemo.pdb
+C:\GitHub\FileSystemApiDemo\obj\Debug\FileSystemApiDemo.csprojResolveAssemblyReference.cache
+C:\GitHub\FileSystemApiDemo\obj\Debug\FileSystemApiDemo.dll
+C:\GitHub\FileSystemApiDemo\obj\Debug\FileSystemApiDemo.pdb

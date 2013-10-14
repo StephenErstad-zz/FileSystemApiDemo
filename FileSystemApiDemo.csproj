@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4B69458F-5641-4FB4-9AF8-F6813F446F88}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FileSystemApiDemo</RootNamespace>
+    <AssemblyName>FileSystemApiDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\404.html" />
+    <Content Include="app\bower_components\angular\angular.js" />
+    <Content Include="app\bower_components\angular\angular.min.js" />
+    <Content Include="app\bower_components\bootstrap.css\css\bootstrap-responsive.css" />
+    <Content Include="app\bower_components\bootstrap.css\css\bootstrap-responsive.min.css" />
+    <Content Include="app\bower_components\bootstrap.css\css\bootstrap.css" />
+    <Content Include="app\bower_components\bootstrap.css\css\bootstrap.min.css" />
+    <Content Include="app\bower_components\bootstrap.css\img\glyphicons-halflings-white.png" />
+    <Content Include="app\bower_components\bootstrap.css\img\glyphicons-halflings.png" />
+    <Content Include="app\bower_components\bootstrap.css\js\bootstrap.js" />
+    <Content Include="app\bower_components\bootstrap.css\js\bootstrap.min.js" />
+    <Content Include="app\bower_components\jquery\jquery-migrate.js" />
+    <Content Include="app\bower_components\jquery\jquery-migrate.min.js" />
+    <Content Include="app\bower_components\jquery\jquery.js" />
+    <Content Include="app\bower_components\jquery\jquery.min.js" />
+    <Content Include="app\favicon.ico" />
+    <Content Include="app\index.html" />
+    <Content Include="app\robots.txt" />
+    <Content Include="app\scripts\fileStorageService.js" />
+    <Content Include="app\styles\main.css" />
+    <Content Include="test\bower_components\jasmine\images\jasmine_favicon.png" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\publish.js" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\static\default.css" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\static\header.html" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\static\index.html" />
+    <Content Include="test\bower_components\jasmine\jshint\jshint.js" />
+    <Content Include="test\bower_components\jasmine\jshint\run.js" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\example\SpecRunner.html" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\example\spec\PlayerSpec.js" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\example\spec\SpecHelper.js" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\example\src\Player.js" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\example\src\Song.js" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\jasmine-html.js" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\jasmine.css" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\jasmine.js" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\json2.js" />
+    <Content Include="test\bower_components\jasmine\spec\console\ConsoleReporterSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\BaseSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\CustomMatchersSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\EnvSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\ExceptionsSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\JsApiReporterSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\MatchersSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\MockClockSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\MultiReporterSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\NestedResultsSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\PrettyPrintSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\QueueSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\ReporterSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\RunnerSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\SpecRunningSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\SpecSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\SpySpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\SuiteSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\UtilSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\core\WaitsForBlockSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\html\HTMLReporterSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\html\MatchersHtmlSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\html\PrettyPrintHtmlSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\html\TrivialReporterSpec.js" />
+    <Content Include="test\bower_components\jasmine\spec\node_suite.js" />
+    <Content Include="test\bower_components\jasmine\spec\runner.html" />
+    <Content Include="test\bower_components\jasmine\src\console\ConsoleReporter.js" />
+    <Content Include="test\bower_components\jasmine\src\core\base.js" />
+    <Content Include="test\bower_components\jasmine\src\core\Block.js" />
+    <Content Include="test\bower_components\jasmine\src\core\Env.js" />
+    <Content Include="test\bower_components\jasmine\src\core\JsApiReporter.js" />
+    <Content Include="test\bower_components\jasmine\src\core\Matchers.js" />
+    <Content Include="test\bower_components\jasmine\src\core\mock-timeout.js" />
+    <Content Include="test\bower_components\jasmine\src\core\MultiReporter.js" />
+    <Content Include="test\bower_components\jasmine\src\core\NestedResults.js" />
+    <Content Include="test\bower_components\jasmine\src\core\PrettyPrinter.js" />
+    <Content Include="test\bower_components\jasmine\src\core\Queue.js" />
+    <Content Include="test\bower_components\jasmine\src\core\Reporter.js" />
+    <Content Include="test\bower_components\jasmine\src\core\Runner.js" />
+    <Content Include="test\bower_components\jasmine\src\core\Spec.js" />
+    <Content Include="test\bower_components\jasmine\src\core\Suite.js" />
+    <Content Include="test\bower_components\jasmine\src\core\util.js" />
+    <Content Include="test\bower_components\jasmine\src\core\WaitsBlock.js" />
+    <Content Include="test\bower_components\jasmine\src\core\WaitsForBlock.js" />
+    <Content Include="test\bower_components\jasmine\src\html\HtmlReporter.js" />
+    <Content Include="test\bower_components\jasmine\src\html\HtmlReporterHelpers.js" />
+    <Content Include="test\bower_components\jasmine\src\html\jasmine.css" />
+    <Content Include="test\bower_components\jasmine\src\html\ReporterView.js" />
+    <Content Include="test\bower_components\jasmine\src\html\SpecView.js" />
+    <Content Include="test\bower_components\jasmine\src\html\SuiteView.js" />
+    <Content Include="test\bower_components\jasmine\src\html\TrivialReporter.js" />
+    <Content Include="test\bower_components\jasmine\src\version.js" />
+    <Content Include="test\index.html" />
+    <Content Include="test\spec\filesystemSpec.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\.htaccess" />
+    <Content Include="app\bower_components\angular\.bower.json" />
+    <Content Include="app\bower_components\angular\angular.min.js.map" />
+    <Content Include="app\bower_components\angular\bower.json" />
+    <Content Include="app\bower_components\bootstrap.css\.bower.json" />
+    <Content Include="app\bower_components\bootstrap.css\bower.json" />
+    <Content Include="app\bower_components\bootstrap.css\README.md" />
+    <Content Include="app\bower_components\jquery\.bower.json" />
+    <Content Include="app\bower_components\jquery\.gitignore" />
+    <Content Include="app\bower_components\jquery\bower.json" />
+    <Content Include="app\bower_components\jquery\component.json" />
+    <Content Include="app\bower_components\jquery\composer.json" />
+    <Content Include="app\bower_components\jquery\jquery.min.map" />
+    <Content Include="app\bower_components\jquery\package.json" />
+    <Content Include="app\bower_components\jquery\README.md" />
+    <Content Include="test\.bowerrc" />
+    <Content Include="test\bower.json" />
+    <Content Include="test\bower_components\jasmine\.bower.json" />
+    <Content Include="test\bower_components\jasmine\.gitignore" />
+    <Content Include="test\bower_components\jasmine\.gitmodules" />
+    <Content Include="test\bower_components\jasmine\.rspec" />
+    <Content Include="test\bower_components\jasmine\.travis.yml" />
+    <Content Include="test\bower_components\jasmine\config.rb" />
+    <Content Include="test\bower_components\jasmine\Contribute.markdown" />
+    <Content Include="test\bower_components\jasmine\Gemfile" />
+    <Content Include="test\bower_components\jasmine\jasmine-core.gemspec" />
+    <Content Include="test\bower_components\jasmine\jasmine_dev.thor" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\allclasses.tmpl" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\allfiles.tmpl" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\class.tmpl" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\index.tmpl" />
+    <Content Include="test\bower_components\jasmine\jsdoc-template\symbol.tmpl" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core.rb" />
+    <Content Include="test\bower_components\jasmine\lib\jasmine-core\version.rb" />
+    <Content Include="test\bower_components\jasmine\MIT.LICENSE" />
+    <Content Include="test\bower_components\jasmine\Rakefile" />
+    <Content Include="test\bower_components\jasmine\README.markdown" />
+    <Content Include="test\bower_components\jasmine\Release.markdown" />
+    <Content Include="test\bower_components\jasmine\spec\jasmine.yml" />
+    <Content Include="test\bower_components\jasmine\spec\jasmine_self_test_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\spec_helper.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\build_distribution_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\build_github_pages_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\build_standalone_distribution_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\build_standalone_runner_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\count_specs_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\execute_specs_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\jshint_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\release_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\tasks\version_spec.rb" />
+    <Content Include="test\bower_components\jasmine\spec\templates\runner.html.erb" />
+    <Content Include="test\bower_components\jasmine\spec\templates\script_tag.html.erb" />
+    <Content Include="test\bower_components\jasmine\src\html\jasmine.scss" />
+    <Content Include="test\bower_components\jasmine\src\html\_HTMLReporter.scss" />
+    <Content Include="test\bower_components\jasmine\src\html\_TrivialReporter.scss" />
+    <Content Include="test\bower_components\jasmine\src\templates\example_project_jasmine_tags.html.erb" />
+    <Content Include="test\bower_components\jasmine\src\templates\version.js.erb" />
+    <Content Include="test\bower_components\jasmine\src\templates\version.rb.erb" />
+    <Content Include="test\bower_components\jasmine\src\version.json" />
+    <Content Include="test\bower_components\jasmine\tasks\docs.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\base.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\build_distribution.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\build_github_pages.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\build_standalone_distribution.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\build_standalone_runner.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\count_specs.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\execute_specs.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\js_hint.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\release.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\sources.rb" />
+    <Content Include="test\bower_components\jasmine\tasks\jasmine_dev\version.rb" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\images\" />
+    <Folder Include="test\bower_components\jasmine\pages\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:13848/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

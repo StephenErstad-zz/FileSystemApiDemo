@@ -18,7 +18,7 @@
 
         xdescribe('Filesystem API storage', function () {
             it('needs to be requested for a given amount if you want persistent storage', function () {
-
+                
                 //We are going to request persistant storage for our application.  We null coalesce because currently Chrome prefixes the storage, but may not in the future.
                 var storage = window.navigator.persistentStorage || window.navigator.webkitPersistentStorage;
 

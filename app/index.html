@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FileSystemApiDemo</title>
+    <title>File System Api Demo</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -34,11 +34,24 @@
             <textarea class="span12" rows="20" ng-model="fileContents" placeholder="File contents..."></textarea>
         </div>
         <div class="row">
-            <button ng-click="saveFile()" class="btn btn-primary">SAVE</button>
+            <div class="span2">
+                <button ng-click="saveFile()" class="btn btn-primary">SAVE</button>
+            </div>
         </div>
-        <div class="row" ng-repeat="file in files">
-            <div class="well span12">
-                <a ng-href="{{file.URL}}">{{file.filePath}}</a>
+        <div ng-repeat="file in files">
+            <div class="well row">
+                <div class="span2">
+                    <a ng-href="{{file.URL}}">{{file.filePath}}</a>
+                </div>
+                <div class="span1">
+                    {{file.fileMimeType}}
+                </div>
+                <div class="span2">
+                    <button class="btn" ng-click="loadDetails(file)">Load Details</button>
+                </div>
+                <div class="span1">
+                    <button class="btn btn-danger" ng-click="deleteFile(file)">Delete</button>
+                </div>
             </div>
         </div>
     </div>
@@ -64,18 +77,38 @@
             }
         ]);
 
-        app.controller('MainCtrlr', ['$scope', function ($scope) {
+        app.controller('MainCtrlr', ['$scope', '$http', function ($scope, $http) {
 
             var internal = {};
 
-            internal.testDirPath = '/demo/'
+            internal.testDirPath = '/demo/';
             internal.service = new FileStorageService();
             internal.setDefaults = function () {
                 $scope.filename = '';
                 $scope.fileContents = '';
                 $scope.fileMimeType = 'text/html';
             };
+            internal.readFiles = function () {
+                internal.service.readDirectory(internal.testDirPath).done(function (fileEntry) {
+                    $scope.$apply(function () {
+
+                        fileEntry.forEach(function (entry) {
+                            $http.get(entry.toURL()).success(function (data) {
+                                $scope.files.push({
+                                    filePath: entry.fullPath,
+                                    fileContents: data,
+                                    URL: entry.toURL()
+                                });
+                            });
+                        });
+
+                    });
+
+                });
+            };
             internal.setDefaults();
+            internal.readFiles();
+
 
             $scope.title = 'File System API Demo App';
             $scope.files = [];
@@ -84,17 +117,41 @@
                 internal.service.writeFile(internal.testDirPath + $scope.filename, $scope.fileContents, $scope.fileMimeType)
                     .done(function (fileEntry) {
 
-                        $scope.files.push({ filePath: fileEntry.fullPath, URL: fileEntry.toURL() });
-                        internal.setDefaults();
+                        $scope.$apply(function () {
+                            $scope.files.push({
+                                filePath: fileEntry.fullPath,
+                                fileContents: $scope.fileContents,
+                                fileMimeType: $scope.fileMimeType,
+                                URL: fileEntry.toURL()
+                            });
+                            internal.setDefaults();
+                        });
+
 
                     });
-
-
-
             };
+
+            $scope.deleteFile = function (file) {
+                internal.service.deleteFile(file.filePath).done(
+                    function () {
+                        $scope.$apply(function () {
+                            $scope.files = $scope.files.filter(function (item) {
+                                return item.filePath !== file.filePath;
+                            });
+                        });
+                    });
+            };
+
+            $scope.loadDetails = function (file) {
+                $scope.filename = file.filePath.substring(file.filePath.lastIndexOf('/') + 1, file.filePath.length);
+                $scope.fileContents = file.fileContents;
+                $scope.fileMimeType = file.fileMimeType;
+            };
+
+
+
         }]);
 
     </script>
-
 </body>
 </html>
