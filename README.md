@@ -5,7 +5,7 @@ Running
 -------
 
 The site can be run as a .NET or a Node.js website.  Only Chrome is currently supported.
-They are run through the normal means of those environments (through VS or >node app.js).
+They are run through the normal means of those environments (through VS2012+ or >node app.js).
 
 The tests can be run at /test/index.html.  They run on Jasmine and are integration tests.  
 They show some of the main functionality of the File System API.
