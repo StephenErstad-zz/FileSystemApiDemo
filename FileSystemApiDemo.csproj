@@ -168,8 +168,6 @@
     <Content Include="app\bower_components\jquery\jquery.min.map" />
     <Content Include="app\bower_components\jquery\package.json" />
     <Content Include="app\bower_components\jquery\README.md" />
-    <Content Include="test\.bowerrc" />
-    <Content Include="test\bower.json" />
     <Content Include="test\bower_components\jasmine\.bower.json" />
     <Content Include="test\bower_components\jasmine\.gitignore" />
     <Content Include="test\bower_components\jasmine\.gitmodules" />
