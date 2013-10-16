@@ -14,6 +14,7 @@
         return Array.prototype.slice.call(list || [], 0);
     };
 
+    //http://caniuse.com/filesystem
     describe('Filesystem API', function () {
 
         describe('Filesystem API storage', function () {
