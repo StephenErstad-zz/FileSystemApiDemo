@@ -242,30 +242,30 @@
         });
 
         xdescribe('Reading a file at a given path', function () {
-            it('Should read the file in the given path and give me the FileEntry object it represents', function () {
+            it('Should read the file in the given path and give me the FileEntry object it represents', function() {
 
                 var helperService = new FileStorageService();
 
 
                 //Confirm our storage and give it the function we want to preform
-                helperService.confirmStorage(function (fs) {
+                helperService.confirmStorage(function(fs) {
                     //Starting at the true root, get the filename in the given path
                     //Notice we are saying to NOT create if it does exist
-                    fs.root.getFile(testData.fileName, { create: false }, function (fileEntry) {
+                    fs.root.getFile(testData.fileName, { create: false }, function(fileEntry) {
                         //Return the FileEntry object representing the file if we are successful
 
                         expect(fileEntry).toBeTruthy();
                         expect(fileEntry.isFile).toBeTruthy();
 
-                    }, function (error) {
+                    }, function(error) {
                         //We failed to get the file...  Depressing
                         expect(false).toBeTruthy();
                     });
-                }).fail(function () {
+                }).fail(function() {
                     //Cry a little if we fail to confirm the storage
                     expect(false).toBeTruthy();
                 });
-            })
+            });
         });
 
         xdescribe('Reading a directory\'s contents at a given path', function () {
