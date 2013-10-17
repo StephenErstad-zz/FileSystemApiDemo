@@ -15,32 +15,32 @@
     };
 
     //http://caniuse.com/filesystem
-    describe('Filesystem API', function () {
+    describe('File System API', function () {
 
-        describe('Filesystem API storage', function () {
+        describe('File System API storage', function () {
             it('needs to be requested for a given amount if you want persistent storage', function () {
 
                 //We are going to request persistant storage for our application.  We null coalesce because currently Chrome prefixes the storage, but may not in the future.
                 var storage = window.navigator.persistentStorage || window.navigator.webkitPersistentStorage;
 
-                //This is what will be used to actually request the filesystem object 
+                //This is what will be used to actually request the file system object 
                 var request = window.requestFileSystem || window.webkitRequestFileSystem;
 
-                //Request the filesystem after getting the quota
+                //Request the file system after getting the quota
                 //Note that a popup will be shown to the user stating the app would like to store "large" files
                 //They could reject
                 storage.requestQuota(testData.desiredBytes,
                     function (grantedBytes) {
                         request(window.PERSISTENT, grantedBytes,
                             function (fs) {
-                                //Pass along the filesystem object to callback
+                                //Pass along the file System object to callback
 
                                 expect(fs).toBeTruthy();
                                 expect(grantedBytes).toBe(testData.desiredBytes);
 
                             },
                             function (error) {
-                                //Fail if we don't get our filesystem
+                                //Fail if we don't get our file system
 
                                 expect(false).toBeTruthy();
 
@@ -61,12 +61,12 @@
                 // InvalidStateError:  An operation depended on state cached in an interface object, but that state that has changed since it was read from disk.
                 // NotFoundError:  A required file or directory could not be found at the time an operation was processed.
                 // NotReadableErr:  A required file or directory could be read.
-                // NoModificationAllowedError:  The user attempted to write to a file or directory which could not be modified due to the state of the underlying filesystem.
+                // NoModificationAllowedError:  The user attempted to write to a file or directory which could not be modified due to the state of the underlying file system.
                 // PathExistsError:  The user agent failed to create a file or directory due to the existence of a file or directory with the same path.
                 // QuotaExceededError:  The operation failed because it would cause the application to exceed its storage quota.
                 // SecurityError:	
                 // 		A required file was unsafe for access within a Web application
-                // 		Too many calls are being made on filesystem resources
+                // 		Too many calls are being made on file system resources
                 // 		This is a security error code to be used in situations not covered by any other error codes.
                 // TypeMismatchError:  The user has attempted to look up a file or directory, 
                 //		but the Entry found is of the wrong type [e.g. is a DirectoryEntry when the user requested a FileEntry].
@@ -159,7 +159,7 @@
         });
 
         xdescribe('Creating files at a given path', function () {
-            it('Should create a file in the given path that has a filesystem URL we can reference', function () {
+            it('Should create a file in the given path that has a file system URL we can reference', function () {
                 var helperService = new FileStorageService();
 
 
@@ -333,7 +333,7 @@
 
         });
 
-        xdescribe('Deleteing a directory at a given path', function () {
+        xdescribe('Deleting a directory at a given path', function () {
 
             it('Should remove the directory and it\'s contents', function () {
 
@@ -377,7 +377,7 @@
 
                 //Confirm our storage and give it the function we want to preform
                 helperService.confirmStorage(function (fs) {
-                    //Lookup the file at the given path starting at the root of the filesystem
+                    //Lookup the file at the given path starting at the root of the file system
                     fs.root.getFile(testData.fileName, { create: false }, function (fileEntry) {
                         //We have found the file at the path
                         fileEntry.remove(function () {
