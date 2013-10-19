@@ -242,26 +242,26 @@
         });
 
         xdescribe('Reading a file at a given path', function () {
-            it('Should read the file in the given path and give me the FileEntry object it represents', function() {
+            it('Should read the file in the given path and give me the FileEntry object it represents', function () {
 
                 var helperService = new FileStorageService();
 
 
                 //Confirm our storage and give it the function we want to preform
-                helperService.confirmStorage(function(fs) {
+                helperService.confirmStorage(function (fs) {
                     //Starting at the true root, get the filename in the given path
                     //Notice we are saying to NOT create if it does exist
-                    fs.root.getFile(testData.fileName, { create: false }, function(fileEntry) {
+                    fs.root.getFile(testData.fileName, { create: false }, function (fileEntry) {
                         //Return the FileEntry object representing the file if we are successful
 
                         expect(fileEntry).toBeTruthy();
                         expect(fileEntry.isFile).toBeTruthy();
 
-                    }, function(error) {
+                    }, function (error) {
                         //We failed to get the file...  Depressing
                         expect(false).toBeTruthy();
                     });
-                }).fail(function() {
+                }).fail(function () {
                     //Cry a little if we fail to confirm the storage
                     expect(false).toBeTruthy();
                 });
@@ -333,6 +333,39 @@
 
         });
 
+        xdescribe('Deleting a file at a given path', function () {
+            it('Should delete the file and nothing else', function () {
+
+                var helperService = new FileStorageService();
+
+                //Confirm our storage and give it the function we want to preform
+                helperService.confirmStorage(function (fs) {
+                    //Lookup the file at the given path starting at the root of the file system
+                    fs.root.getFile(testData.fileName, { create: false }, function (fileEntry) {
+                        //We have found the file at the path
+                        fileEntry.remove(function () {
+                            //Successfully deleted
+                            expect(true).toBeTruthy();
+                        }, function (error) {
+                            //Failed to delete
+                            expect(true).toBeFalsy();
+                        });
+                    }, function (error) {
+                        //If the file was not found at the given path, then we consider it deleted
+                        if (error.code === FileError.NOT_FOUND_ERR) {
+                            expect(true).toBeTruthy();
+                        } else {
+                            //Failed to get the file 
+                            expect(true).toBeFalsy();
+                        }
+                    });
+                }).fail(function () {
+                    //Failed to confirm the storage, I blame Sean Dulin, the data, or both
+                    expect(true).toBeFalsy();
+                });
+            });
+        });
+
         xdescribe('Deleting a directory at a given path', function () {
 
             it('Should remove the directory and it\'s contents', function () {
@@ -368,39 +401,6 @@
 
             });
 
-        });
-
-        xdescribe('Deleting a file at a given path', function () {
-            it('Should delete the file and nothing else', function () {
-
-                var helperService = new FileStorageService();
-
-                //Confirm our storage and give it the function we want to preform
-                helperService.confirmStorage(function (fs) {
-                    //Lookup the file at the given path starting at the root of the file system
-                    fs.root.getFile(testData.fileName, { create: false }, function (fileEntry) {
-                        //We have found the file at the path
-                        fileEntry.remove(function () {
-                            //Successfully deleted
-                            expect(true).toBeTruthy();
-                        }, function (error) {
-                            //Failed to delete
-                            expect(true).toBeFalsy();
-                        });
-                    }, function (error) {
-                        //If the file was not found at the given path, then we consider it deleted
-                        if (error.code === FileError.NOT_FOUND_ERR) {
-                            expect(true).toBeTruthy();
-                        } else {
-                            //Failed to get the file 
-                            expect(true).toBeFalsy();
-                        }
-                    });
-                }).fail(function () {
-                    //Failed to confirm the storage, I blame Sean Dulin, the data, or both
-                    expect(true).toBeFalsy();
-                });
-            });
         });
 
     });
